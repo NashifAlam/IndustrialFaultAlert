@@ -1,0 +1,9 @@
+--cpu ARM7TDMI
+".\startup.o"
+".\mainrtc.o"
+".\uart0.o"
+".\delay.o"
+--strict --scatter ".\RTC3.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\RTC3.map" -o .\RTC3.axf

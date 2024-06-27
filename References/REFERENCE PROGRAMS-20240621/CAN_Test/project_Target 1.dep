@@ -1,0 +1,15 @@
+Dependencies for Project 'project', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x5209CE98)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil4ARM\ARM\RV31\INC-I C:\Keil4ARM\ARM\CMSIS\Include-I C:\Keil4ARM\ARM\Inc\Philips--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\can.c)(0x63940BBB)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil4ARM\ARM\RV31\INC-I C:\Keil4ARM\ARM\CMSIS\Include-I C:\Keil4ARM\ARM\Inc\Philips-o .\can.o --omf_browse .\can.crf --depend .\can.d)
+I (C:\Keil4ARM\ARM\Inc\Philips\lpc21xx.h)(0x532C1500)
+I (types.h)(0x6267CE7A)
+I (can.h)(0x63940BBB)
+I (can_defines.h)(0x639330E4)
+F (.\mainTxNode.c)(0x63940BBB)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil4ARM\ARM\RV31\INC-I C:\Keil4ARM\ARM\CMSIS\Include-I C:\Keil4ARM\ARM\Inc\Philips-o .\maintxnode.o --omf_browse .\maintxnode.crf --depend .\maintxnode.d)
+I (C:\Keil4ARM\ARM\Inc\Philips\lpc21xx.h)(0x532C1500)
+I (types.h)(0x6267CE7A)
+I (can.h)(0x63940BBB)
+F (.\mainCAN_RxTest.c)(0x6295A60B)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil4ARM\ARM\RV31\INC-I C:\Keil4ARM\ARM\CMSIS\Include-I C:\Keil4ARM\ARM\Inc\Philips-o .\maincan_rxtest.o --omf_browse .\maincan_rxtest.crf --depend .\maincan_rxtest.d)
+I (C:\Keil4ARM\ARM\Inc\Philips\LPC21xx.h)(0x532C1500)
+I (can.h)(0x63940BBB)
+I (types.h)(0x6267CE7A)
