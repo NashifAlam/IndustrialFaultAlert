@@ -1,0 +1,24 @@
+Dependencies for Project 'sample', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x614EAE74)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\spi.c)(0x66112238)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\spi.o --omf_browse .\spi.crf --depend .\spi.d)
+I (C:\Keil\ARM\Inc\Philips\LPC21xx.h)(0x532CC4C8)
+I (types.h)(0x614EAE74)
+I (spi_defines.h)(0x614EAE74)
+F (.\spi_eeprom.c)(0x614EAE74)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\spi_eeprom.o --omf_browse .\spi_eeprom.crf --depend .\spi_eeprom.d)
+I (C:\Keil\ARM\Inc\Philips\LPC21xx.h)(0x532CC4C8)
+I (types.h)(0x614EAE74)
+I (spi_defines.h)(0x614EAE74)
+I (spi.h)(0x614EAE74)
+I (spi_eeprom_defines.h)(0x614EAE74)
+I (spi_eeprom.h)(0x614EAE74)
+I (delay.h)(0x614EAE74)
+F (.\delay.c)(0x614EAE74)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\delay.o --omf_browse .\delay.crf --depend .\delay.d)
+I (types.h)(0x614EAE74)
+F (..\main_spi_eeprom_test1.c)(0x63D320C8)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I C:\Keil\ARM\Inc\Philips-o .\main_spi_eeprom_test1.o --omf_browse .\main_spi_eeprom_test1.crf --depend .\main_spi_eeprom_test1.d)
+I (C:\Keil\ARM\Inc\Philips\LPC21xx.h)(0x532CC4C8)
+I (..\types.h)(0x63A27AB8)
+I (..\delay.h)(0x63D31FAE)
+I (..\spi.h)(0x63D31FD2)
+I (..\spi_eeprom.h)(0x63D32042)
+I (..\spi_eeprom_defines.h)(0x63D32058)
+I (..\defines.h)(0x63CDDA1C)

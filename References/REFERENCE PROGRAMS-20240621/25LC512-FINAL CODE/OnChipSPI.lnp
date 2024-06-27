@@ -1,0 +1,10 @@
+--cpu ARM7TDMI
+".\startup.o"
+".\spi.o"
+".\spi_eeprom.o"
+".\delay.o"
+".\main_spi_eeprom_test1.o"
+--strict --scatter ".\OnChipSPI.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\OnChipSPI.map" -o .\OnChipSPI.axf
