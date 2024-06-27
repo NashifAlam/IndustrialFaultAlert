@@ -1,0 +1,16 @@
+Dependencies for Project 'lcd', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Startup.s)(0x532C14EA)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I C:\Keil4_ARM\ARM\RV31\INC-I C:\Keil4_ARM\ARM\CMSIS\Include-I C:\Keil4_ARM\ARM\Inc\Philips--list .\startup.lst --xref -o .\startup.o --depend .\startup.d)
+F (.\delay.c)(0x652A3C3A)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil4_ARM\ARM\RV31\INC-I C:\Keil4_ARM\ARM\CMSIS\Include-I C:\Keil4_ARM\ARM\Inc\Philips-o .\delay.o --omf_browse .\delay.crf --depend .\delay.d)
+F (.\lcd.c)(0x652D1408)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil4_ARM\ARM\RV31\INC-I C:\Keil4_ARM\ARM\CMSIS\Include-I C:\Keil4_ARM\ARM\Inc\Philips-o .\lcd.o --omf_browse .\lcd.crf --depend .\lcd.d)
+I (C:\Keil4_ARM\ARM\Inc\Philips\LPC21xx.h)(0x532C1500)
+I (delay.h)(0x652A3C39)
+I (lcd.h)(0x64660616)
+I (defines.h)(0x63884025)
+F (.\Main_LCD.c)(0x652CFF98)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil4_ARM\ARM\RV31\INC-I C:\Keil4_ARM\ARM\CMSIS\Include-I C:\Keil4_ARM\ARM\Inc\Philips-o .\main_lcd.o --omf_browse .\main_lcd.crf --depend .\main_lcd.d)
+I (C:\Keil4_ARM\ARM\Inc\Philips\lpc21xx.h)(0x532C1500)
+I (lcd.h)(0x64660616)
+I (delay.h)(0x652A3C39)
+I (ds18b20.h)(0x652A3D4C)
+F (.\ds18b20.c)(0x652D14E5)(-c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork -I C:\Keil4_ARM\ARM\RV31\INC-I C:\Keil4_ARM\ARM\CMSIS\Include-I C:\Keil4_ARM\ARM\Inc\Philips-o .\ds18b20.o --omf_browse .\ds18b20.crf --depend .\ds18b20.d)
+I (C:\Keil4_ARM\ARM\Inc\Philips\LPC21xx.h)(0x532C1500)
+I (delay.h)(0x652A3C39)

@@ -1,0 +1,9 @@
+main.o: main.c
+main.o: C:\KeilARM\ARM\INC\Philips\LPC21xx.h
+main.o: types.h
+main.o: i2c.h
+main.o: types.h
+main.o: i2c_eeprom.h
+main.o: types.h
+main.o: delay.h
+main.o: types.h
