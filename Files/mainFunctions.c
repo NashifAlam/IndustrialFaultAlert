@@ -1,5 +1,4 @@
-#include "MQ2.h"
-#include "functions.h"
+#include "header.h"
 
 int readThresholdMin(void)
 {
@@ -17,5 +16,35 @@ void Alert(void)
 {
 	//BlinkRedLED();
 	//Message to GSM;
-	int temp;
+;
+
+}
+
+void LCDStart(void)
+{	
+
+	s8 Message[10];
+	s8 KPMinput;
+	InitLCD();
+
+	
+	strcpy(Message, "Enter Password");
+	
+	CmdLCD(CLEAR_LCD);
+	CmdLCD(GOTO_LINE1_POS0);
+	StrLCD(Message);
+	CmdLCD(GOTO_LINE2_POS0);
+	//Password Display
+
+	InitKPM();
+	while(1)
+	{
+	   	KPMinput = KeyScan();
+		CmdLCD(GOTO_LINE2_POS0);
+		CharLCD(KPMinput);
+		delay_ms(100);
+	}
+	
+
+	
 }

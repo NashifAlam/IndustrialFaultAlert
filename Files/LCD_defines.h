@@ -1,8 +1,4 @@
-#define LCD_DATA 16 //p1.16 to p1.23
-#define LCD_RS   25 //p1.24
-#define LCD_RW   24 //p1.25
-#define LCD_EN   26 //p1.26
-
+#include "pin.h"
 //HD44780 Commands
 #define CLEAR_LCD            0x01
 #define RET_CUR_HOME         0x02

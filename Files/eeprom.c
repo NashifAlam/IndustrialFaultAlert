@@ -21,6 +21,24 @@ void i2c_eeprom_bytewrite(u8 slaveAddr,
     delay_ms(10);
 }			
 
+
+void i2c_eeprom_pagewrite(u8 slaveAddr,
+	                        u8 wBuffStartAddr,
+                          s8 *p,
+                          u8 nBytes)
+{
+  u8 i;
+  i2c_start();	
+  //slaveAddr + w
+  i2c_write(slaveAddr<<1);    
+  //wBuffStartAddr
+  i2c_write(wBuffStartAddr);  
+  for(i=0;i<nBytes;i++)
+      i2c_write(p[i]); //wDATA            
+  i2c_stop();
+  delay_ms(10);
+}	
+
 u8 i2c_eeprom_randomread(u8 slaveAddr,
                          u8 rBuffAddr)
 {
@@ -40,23 +58,6 @@ u8 i2c_eeprom_randomread(u8 slaveAddr,
     i2c_stop();
     return dat;
 }
-
-void i2c_eeprom_pagewrite(u8 slaveAddr,
-	                        u8 wBuffStartAddr,
-                          s8 *p,
-                          u8 nBytes)
-{
-  u8 i;
-  i2c_start();	
-  //slaveAddr + w
-  i2c_write(slaveAddr<<1);    
-  //wBuffStartAddr
-  i2c_write(wBuffStartAddr);  
-  for(i=0;i<nBytes;i++)
-      i2c_write(p[i]); //wDATA            
-  i2c_stop();
-  delay_ms(10);
-}	
 
 void i2c_eeprom_seqread(u8 slaveAddr,
 	                      u8 rBuffStartAddr,

@@ -1,4 +1,5 @@
 #include "types.h"
+#include "lcd_defines.h"
 void writeLCD(u8 byte);
 void cmLCD(u8 cmd);
 void charLCD(u8 asciival);
