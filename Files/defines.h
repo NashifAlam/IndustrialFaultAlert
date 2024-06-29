@@ -1,5 +1,5 @@
 //define.h
-#include<LPC21xx.h>
+//#include<LPC21xx.h>
 #define SETBIT(WORD,BITPOS)              (WORD |=1<<BITPOS) 
 #define	SSETBIT(WORD,BITPOS)			 (WORD  =1<<BITPOS) 
 

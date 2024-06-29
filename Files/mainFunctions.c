@@ -16,8 +16,8 @@ void Alert(void)
 {
 	//BlinkRedLED();
 	//Message to GSM;
-	int temp;
-	temp++;
+;
+
 }
 
 void LCDStart(void)
