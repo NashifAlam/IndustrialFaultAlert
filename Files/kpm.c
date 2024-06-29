@@ -1,5 +1,5 @@
 #include "types.h"
-#include "kpm_defines.h"
+#include "pin.h"
 #include <LPC21xx.h>
 #include "defines.h"
 
@@ -14,13 +14,13 @@ char kpmLUT[4][4]=
 void InitKPM(void)
 {
   //ground all row lines
-  WRITENIBBLE(IODIR0,ROW0,15);
+  WRITENIBBLE(IODIR1,ROW0,15);
   //default all col lines are input high	
 }
 
 u32  ColScan(void)
 {
-  return (READNIBBLE(IOPIN0,COL0)==15) ? 1 : 0; 	
+  return (READNIBBLE(IOPIN1,COL0)==15) ? 1 : 0; 	
 }
 
 u32  RowCheck(void)
@@ -28,11 +28,11 @@ u32  RowCheck(void)
 	u32 r;
 	for(r=0;r<4;r++)
 	{
-		WRITENIBBLE(IOPIN0,ROW0,~(1<<r));
+		WRITENIBBLE(IOPIN1,ROW0,~(1<<r));
 		if(ColScan()==0)
 			 break;
 	}
-	WRITENIBBLE(IOPIN0,ROW0,0);
+	WRITENIBBLE(IOPIN1,ROW0,0);
 	return r;
 }
 
@@ -41,7 +41,7 @@ u32 ColCheck(void)
 	u32 c;
 	for(c=0;c<4;c++)
 	{
-		if(READBIT(IOPIN0,COL0+c)==0)
+		if(READBIT(IOPIN1,COL0+c)==0)
 			break;
 	}
 	return c;

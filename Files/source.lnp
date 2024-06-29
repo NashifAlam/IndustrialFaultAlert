@@ -1,0 +1,4 @@
+--cpu ARM7TDMI "startup.o" "delay.o" "main.o" "mainfunctions.o" "lm35.o" "adc.o" "mq2.o" "uart.o" "i2c.o" "kpm.o" "lcd.o" "eeprom.o" --strict --scatter "source.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\source.map" -o "source.axf"

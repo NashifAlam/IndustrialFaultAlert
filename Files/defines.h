@@ -3,7 +3,7 @@
 #define SETBIT(WORD,BITPOS)              (WORD |=1<<BITPOS) 
 #define	SSETBIT(WORD,BITPOS)			 (WORD  =1<<BITPOS) 
 
-#define	CLRBIT(WORD,BITPOS)				 (WORD &=~1<<BITPOS) 
+#define	CLRBIT(WORD,BITPOS)				 (WORD &=~(1<<BITPOS)) 
 #define	SCLRBIT(WORD,BITPOS)			 (WORD  =1<<BITPOS) 
 
 #define	CPLBIT(WORD,BITPOS)				 (WORD ^=1<<BITPOS) 
