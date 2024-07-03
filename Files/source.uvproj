@@ -566,9 +566,6 @@
             </File>
           </Files>
         </Group>
-        <Group>
-          <GroupName>Switch</GroupName>
-        </Group>
       </Groups>
     </Target>
   </Targets>

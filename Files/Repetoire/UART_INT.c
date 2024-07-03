@@ -73,7 +73,48 @@ void UART0_Str(char *s)
        UART0_Tx(*s++);
 }
 
+void UART0_Int(unsigned int n)
+{
+  unsigned char a[10]={0,0,0,0,0,0,0,0,0,0};
+  int i=0;
+  if(n==0)
+  {
+    UART0_Tx('0');
+	return;
+  }
+  else
+  {
+     while(n>0)
+	 {
+	   a[i++]=(n%10)+48;
+	   n=n/10;
+	 }
+	 --i;
+	 for(;i>=0;i--)
+	 {
+	   UART0_Tx(a[i]);
+	 }
+   }
+}
 
+void UART0_Float(float f)
+{
+  int x;
+  float temp;
+  x=f;
+  UART0_Int(x);
+  UART0_Tx('.');
+  temp=(f-x)*100;
+  x=temp;
+  UART0_Int(x);
+}
+
+void  DelayS(unsigned int  dly)
+{  unsigned int  i;
+
+   for(; dly>0; dly--) 
+      for(i=1200000; i>0; i--);
+}
 
 								
 int main()

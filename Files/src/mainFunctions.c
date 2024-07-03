@@ -31,7 +31,7 @@ void LCDStart(void)
 {	
 
 	s8 Message[10];
-	InitLCD();
+
 
 	strcpy(Message, "Enter Password");
 	
@@ -68,8 +68,8 @@ TRIAL:
 	CmdLCD(CLEAR_LCD);
 	CmdLCD(GOTO_LINE1_POS0);
 	StrLCD("Enter Password");
-	CmdLCD(GOTO_LINE1_POS0);
-	for(i=0;i <=10;i++)
+	CmdLCD(GOTO_LINE2_POS0);
+	for(i=0;i<=10;i++)
 
 	{	
 		credentialBuff[i] = KeyScan();
@@ -85,9 +85,10 @@ TRIAL:
 		{
 			credentialBuff[i] = '\0';
 		}
+		delay_ms(300);
 	 }
 
-	if(strcmp(credentialBuff, hashBuff))
+	if(!strcmp(credentialBuff, hashBuff))
 	{
 		GreenLED(1);
 		CmdLCD(CLEAR_LCD);
@@ -95,7 +96,7 @@ TRIAL:
 	
 		StrLCD("Min temp : ");
 		//CmdLCD(GOTO_LINE2_POS0);
-		CmdLCD(GOTO_LINE2_POS0 + 12);
+		CmdLCD(GOTO_LINE1_POS0 + 12);
 		
 		for(i=0;i <=3;i++)
 		{
@@ -113,6 +114,7 @@ TRIAL:
 				Max[i] = '\0';
 				break;
 			}
+			delay_ms(300);
 		 }		
 
 		CmdLCD(GOTO_LINE2_POS0);
@@ -134,11 +136,13 @@ TRIAL:
 				Min[i] = '\0';
 				break;
 			}
+			delay_ms(300);
 		 }	
 
 		setThreshold(Min,Max);
 		GreenLED(0); // Turn off LED when interrupt over 
-		//CmdLCD(CLEAR_LCD);
+		delay_s(3);
+		CmdLCD(CLEAR_LCD);
 		RedLED(0);
 		return;
 	}
