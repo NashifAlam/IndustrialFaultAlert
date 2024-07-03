@@ -5,23 +5,26 @@
 ### List of Objects: adding '"delay.o"'
 ### List of Objects: adding '"main.o"'
 ### List of Objects: adding '"mainfunctions.o"'
+### List of Objects: adding '"mq2.o"'
 ### List of Objects: adding '"lm35.o"'
 ### List of Objects: adding '"adc.o"'
-### List of Objects: adding '"mq2.o"'
+### List of Objects: adding '"interrupt.o"'
 ### List of Objects: adding '"uart.o"'
 ### List of Objects: adding '"i2c.o"'
 ### List of Objects: adding '"kpm.o"'
 ### List of Objects: adding '"lcd.o"'
+### List of Objects: adding '"led.o"'
+### List of Objects: adding '"gsm.o"'
 ### List of Objects: adding '"eeprom.o"'
 ### ADS-LD Command completed:
---cpu ARM7TDMI "startup.o" "delay.o" "main.o" "mainfunctions.o" "lm35.o" "adc.o" "mq2.o" "uart.o" "i2c.o" "kpm.o" "lcd.o" "eeprom.o" --strict --scatter "source.sct" 
+--cpu ARM7TDMI "startup.o" "delay.o" "main.o" "mainfunctions.o" "mq2.o" "lm35.o" "adc.o" "interrupt.o" "uart.o" "i2c.o" "kpm.o" "lcd.o" "led.o" "gsm.o" "eeprom.o" --strict --scatter "source.sct" 
 --autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
 --info sizes --info totals --info unused --info veneers 
  --list ".\source.map" -o "source.axf"### Preparing Environment (PrepEnvAds)
 ### ADS-LD Output File: 'source.axf'
 ### ADS-LD Command File: 'source.lnp'
 ### Checking for dirty Components...
-### Creating CmdFile 'source.lnp', Handle=0x000002B8
+### Creating CmdFile 'source.lnp', Handle=0x00000178
 ### Writing '.lnp' file
 ### ADS-LD Command file 'source.lnp' is ready.
 ### ADS-LD: About to start ADS-LD Thread.
