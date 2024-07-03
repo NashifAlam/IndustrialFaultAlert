@@ -27,7 +27,7 @@
 #define REDLED 1<<27 //P1.17
 
 //Switches
-#define INTERSWITCH 1<<3
+#define INTERSWITCH 16
 #define ACKSWITCH 1 << 4
 
 //Interrupt

@@ -3,28 +3,29 @@
 #include "functions.h"
 #include "LED.h"
 	 	
-#define CFGPIN(WORD,PIN,FUNC) \
+/*#define CFGPIN(WORD,PIN,FUNC) \
         WORD=((PIN<16) ? \
              ((WORD&~(3<<(PIN*2)))|(FUNC<<(PIN*2))): \
              ((WORD&~(3<<((PIN-16)*2)))|(FUNC<<((PIN-16)*2))));
-				
+*/				
 
 unsigned int count;
 
-//#define EINT0_LED 1
+#define EINT0_LED 1
 
 void eint0_isr(void) __irq
 {
-//	CPLBIT(IOPIN1,EINT0_LED);//isr activity
-	//LCDStart();
+	CPLBIT(IOPIN0,EINT0_LED);//isr activity
+	LCDStart();
 	SCLRBIT(EXTINT,0);//clear flag
-	VICVectAddr=0;//dummy write;
+	VICVectAddr=0;//dummy write;		   
 }	
 
 void Enable_EINT0(void)
 {
+	PINSEL0=0x0000000C;
 	//CFGPIN(PINSEL0,1,FUNC4);
-	CFGPIN(PINSEL0,3,0);
+	//CFGPIN(PINSEL0,INTERSWITCH,2);
 //	SETBIT(IODIR1,EINT0_LED);
 	SSETBIT(VICIntEnable,14);
 	VICVectCntl0=0x20|14;
@@ -32,9 +33,10 @@ void Enable_EINT0(void)
 	
 	//Enable EINT0 
 	//SSETBIT(EXTINT,0) //default
-	
+	   SCLRBIT(EXTINT,0);	
+
 	//EINT0 as EDGE_TRIG
   SETBIT(EXTMODE,0);
 	//EINT0 as REDGE
-  SETBIT(EXTPOLAR,0);	
+  //SETBIT(EXTPOLAR,0);	
 }	
