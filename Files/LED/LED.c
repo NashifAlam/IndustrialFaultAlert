@@ -3,15 +3,17 @@
 
 void RedLED(short int status)
 {
-	if(status) IOSET0 = REDLED;
-	else IOCLR0 = REDLED;
+
+	if(status) IOSET0 |= 1 << REDLED;
+	else IOCLR0 |= 1 <<REDLED;
 	 
 	return;
 }
 void GreenLED(short int status)
 {
-	if(status) IOSET0 = GREENLED;
-	else IOCLR0 = GREENLED;
+	
+	if(status) IOSET0 |= 1 << GREENLED;
+	else IOCLR0 |= 1 << GREENLED;
 	 
 	return;
 }

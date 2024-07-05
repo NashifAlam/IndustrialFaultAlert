@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "functions.h"
 #include "LED.h"
+#include "delay.h"
 	 	
 /*#define CFGPIN(WORD,PIN,FUNC) \
         WORD=((PIN<16) ? \
@@ -9,21 +10,29 @@
              ((WORD&~(3<<((PIN-16)*2)))|(FUNC<<((PIN-16)*2))));
 */				
 
+
+extern int interruptFlag;
 unsigned int count;
 
-#define EINT0_LED 1
+//#define EINT0_LED 1
 
 void eint0_isr(void) __irq
 {
-	CPLBIT(IOPIN0,EINT0_LED);//isr activity
-	LCDStart();
+	//CPLBIT(IOPIN0,EINT0_LED);//isr activity
+	//LCDStart();
+	interruptFlag = 1;
+	irr();
+	checkPassword();
+	delay_ms(2);
 	SCLRBIT(EXTINT,0);//clear flag
-	VICVectAddr=0;//dummy write;		   
+	VICVectAddr=0;//dummy write;	
+	interruptFlag = 0;	   
 }	
 
 void Enable_EINT0(void)
 {
-	PINSEL0=0x0000000C;
+	PINSEL1= PININTERRUPT;
+	//0x15400000;
 	//CFGPIN(PINSEL0,1,FUNC4);
 	//CFGPIN(PINSEL0,INTERSWITCH,2);
 //	SETBIT(IODIR1,EINT0_LED);

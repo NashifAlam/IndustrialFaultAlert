@@ -72,10 +72,38 @@ void U0_TxF32(f32 f,u8 nDP)
   }			
 }
 
+
 u8 UART0_Rx(void)
 {
 	//wait for reception completion status
 	while(READBIT(U0LSR,RDR_BIT)==0);
 	//read & return recvd byte;
 	return U0RBR;
+}
+
+u32 UART0_StrRx(u8 *Buff[])
+{
+
+	int i = 0;
+
+	do{
+		*Buff[i] = UART0_Rx();
+		if(*Buff[i] == 'K' && *Buff[i-1] == 'O')
+			break;
+	}while(i++);
+
+	if(*Buff[i] == 'K' && *Buff[i-1] == 'O')
+		return 1;
+	else 
+		return 0;
+
+
+}
+
+u32 UART0_OK(void)
+{
+	if((UART0_Rx() == 'K') && (UART0_Rx() == 'O'))
+		return 1;
+	else
+		return 1;
 }

@@ -11,6 +11,9 @@
 #include "LED.h"
 #include "interrupt.h" 
 #include "GSM.h"
+#include "lm35.h"
+#include "uart.h"
+
 
 int interSwitch(void);
 int ackSwitch(void);
