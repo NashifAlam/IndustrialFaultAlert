@@ -20,17 +20,20 @@
 #define FUNC1 0
 #define FUNC2 1
 #define FUNC3 2
-//#define FUNC4 3
+#define FUNC4 3
 
 //LEDs
-#define GREENLED 1<<26 //P1.16
-#define REDLED 1<<27 //P1.17
+#define GREENLED 17 //P1.16
+#define REDLED 18 //P1.17
 
 //Switches
-#define INTERSWITCH 16
-#define ACKSWITCH 1 << 4
+#define ACKSWITCH 19	   //For turning off the  alert
 
+//EEPROM
+#define I2CPINS 0x00000050
 //Interrupt
+//0x15400001 
+#define PININTERRUPT  0x15400001  //0x0000000C	//	
 //StopAlert
 
 //GSM

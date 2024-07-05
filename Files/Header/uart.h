@@ -6,3 +6,5 @@ void U0_TxU32(u32 );
 void U0_TxStr(s8 *);
 void U0_TxF32(f32,u8);
 u8   UART0_Rx(void);
+u32 UART0_StrRx(u8 (*)[40]);
+u32 UART0_OK(void);

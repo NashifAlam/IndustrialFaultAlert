@@ -3,8 +3,8 @@
 #include "I2C.h"
 #include "defines.h"
 
-u8 rByte __attribute__((at(0x40000010)));
-s8 rArray[10] __attribute__((at(0x40000020)));
+u8 rByte;//__attribute__((at(0x40000010)));
+s8 rArray[10];// __attribute__((at(0x40000020)));
 
 void i2c_eeprom_bytewrite(u8 slaveAddr,
 	                        u8 wBuffAddr,
@@ -89,24 +89,33 @@ void i2c_eeprom_seqread(u8 slaveAddr,
 
 void setThreshold(char* min, char* max)
 {
+    //wBuffStartAddr for min
 	
+	
+	//i2c_eeprom_pagewrite(0x50, 0x20,min,8) ;
+	//wBuffStartAddr for max
+	//i2c_eeprom_pagewrite(0x50, 0x30,max,8) ;
+
 	return;
 }
 
 int readThresholdMin(void)
-{
-		int threshold;
-	   //read threshold from eeprom 
-	   return threshold;
+{		
+	//i2c_eeprom_seqread(0x50,0x20,Min,8);
+	//convert from string to int hen return int
+	return 10;
 }
 int readThresholdMax(void)
-{
-		int threshold;
-	   //read threshold from eeprom 
-	   return threshold;
+{	   
+
+	//i2c_eeprom_seqread(0x50,0x30,Max,8);
+	//covert from string to int then return the int
+	   return 45;
 }
 
 void readPassword(char** readBuffer)
-{
+{	
+	i2c_eeprom_pagewrite(0x50,0x10,"1234567",8);
+	//i2c_eeprom_seqread(0x50,0x10,readBuffer,8);
 	return;
 }
