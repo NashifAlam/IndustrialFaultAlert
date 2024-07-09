@@ -3,12 +3,15 @@
 #include "types.h"
 #include "adc_defines.h"
 #include "defines.h"
+#include "pin.h"
+
 void Init_ADC(void)
 {
 	//cfg i/o pin p0.27 for analog input (AIN0)
 	//default pin p0.27 is cfgd as AIN0 
 	//cfg ADCR to make ADC operational with
 	//required sampling rate
+	//PINSEL1 |= (0x01 << ADCPIN); //Check out SDC func
 	ADCR=((PDN_BIT)|(CLKDIV<<8));
 }
 

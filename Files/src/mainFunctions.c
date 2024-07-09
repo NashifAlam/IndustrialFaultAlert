@@ -1,30 +1,50 @@
 #include "header.h"
 #include "eeprom.h"
 
-//s8 p[9] __attribute__((at(0x40000040)))="";
+extern int tempMax;
+extern int tempMin;
+char hashBuff[16];
+char keyPress;
+s8 credentialBuff[20];
+	//char hashBuff[16];
+	//s8 Message[16];
+s8 Min[4], Max[4];
+short int counter;
+short int trial =0;
+int Flag;
+
 int ackSwitch()
 {
-	return ((IOPIN0 >> (ACKSWITCH) & 1)); 
+	return (IOPIN0 >> (ACKSWITCH & 1)); 
 }
 
-int interSwitch()
-{
-	return 	1;//(IOPIN0 >> (INTERSWITCH & 1));
-}
 void irr(void)
 {
-   			CmdLCD(CLEAR_LCD);
+   		CmdLCD(CLEAR_LCD);
 			CmdLCD(GOTO_LINE1_POS0);
 			StrLCD("Interrupt Hit !!");
 			delay_s(3);
 			CmdLCD(CLEAR_LCD);
 }
 
-void Alert(void)
-{
-	//Message to GSM;
-	 
-	SendGSM_SMS("Alert You fucked up !!");
+void Alert(u32 status)
+{	
+	switch(status)
+	{
+		case 0 :	 StrLCD1("ALERT: SMOKE");
+						SendGSM_SMS("Alert Smoke detected");
+						break;
+		case 1 :	 StrLCD1("ALERT : LOW TEMP");
+						SendGSM_SMS("Alert High Temperature Detected");
+						break;
+		case 2 :	 StrLCD1("ALERT : HIGH TEMP");
+						SendGSM_SMS("Alert Low Temperature Detected");
+						break;
+		default : StrLCD1("ALERT : UNKNOWN");
+						SendGSM_SMS("UNKNOWN ERROR DETECTED");
+						break;
+	}
+	
 
 	while(!ackSwitch())//while turn off switch is not pressed
 	{
@@ -34,145 +54,162 @@ void Alert(void)
 		delay_ms(300);
 	}
 }
-
-
-void LCDStart(void)
-{	
-
-	/*s8 Message[10];
-
-
-	strcpy(Message, "Enter Password");
-	
-	CmdLCD(CLEAR_LCD);
-	CmdLCD(GOTO_LINE1_POS0);
-	StrLCD(Message);
-	CmdLCD(GOTO_LINE2_POS0);
-	//Password Display
-
-	InitKPM();	
-	checkPassword();
-	*/
-}
-
-
-void checkPassword(void)
+void changePassword(void)
 {
-	s8 credentialBuff[20];
-	s8 hashBuff[16];
-	//s8 Message[16];
-	
-	//s8 Min[4], Max[4];
-	short int i;
-	short int trial =0;
-	s8 Max[4], Min[4];
-	
-	s8 Message[10];
-
-   	PINSEL0 |= I2CPINS;
-	strcpy(Message, "Enter Password");
-	
-	CmdLCD(CLEAR_LCD);
-	CmdLCD(GOTO_LINE1_POS0);
-	StrLCD(Message);
+	memset(credentialBuff,'\0',16);
+	GreenLED(1);
+	StrLCD1("Enter Password");
 	CmdLCD(GOTO_LINE2_POS0);
-	//Password Display
-
-	InitKPM();	
-	//checkPassword();
-	
-	//When read from I2C works 	 
-	//i2c_eeprom_seqread(I2C_EEPROM_SA,0x00,hashBuff,10);
-	//strcpy(hashBuff, p);
-		
-	strcpy(hashBuff, "1234567");
-
-
-TRIAL: 
-	CmdLCD(CLEAR_LCD);
-	CmdLCD(GOTO_LINE1_POS0);
-	StrLCD("Enter Password");
-	CmdLCD(GOTO_LINE2_POS0);
-	for(i=0;i<=10;i++)
+	for(counter=0;counter<=10;counter++)
 
 	{	
 		delay_ms(300);
-		credentialBuff[i] = KeyScan();
-		//CmdLCD(GOTO_LINE2_POS0 + i);
-		CharLCD(credentialBuff[i]);
+		credentialBuff[counter] = KeyScan();
+		//CmdLCD(GOTO_LINE2_POS0 + counter);
+		CharLCD(credentialBuff[counter]);
 		
-		if(credentialBuff[i]=='A')
+		if(credentialBuff[counter]=='A')
 		{
-			credentialBuff[i]='\0';
+			credentialBuff[counter]='\0';
 			break;
 		}
-		if(i == 10)
+		if(counter == 10)
 		{
-			credentialBuff[i] = '\0';
+			credentialBuff[counter] = '\0';
 		}
 	
 	 }
 
-	if(!strcmp(credentialBuff, hashBuff))
-	{
-		GreenLED(1);
+	 setPassword(credentialBuff);
+	 StrLCD1("Password Set !!");
+		delay_s(3);
 		CmdLCD(CLEAR_LCD);
-		CmdLCD(GOTO_LINE1_POS0);
+		RedLED(0);
+		StrLCD("Return to main");
+}
+void changeThreshold(void)
+{
+		GreenLED(1);
 	
-		StrLCD("Max temp : ");
+		StrLCD1("Max temp : ");
 		//CmdLCD(GOTO_LINE2_POS0);
 		CmdLCD(GOTO_LINE1_POS0 + 12);
 		
-		for(i=0;i <=3;i++)
+		for(counter=0;counter <=3;counter++)
 		{
 			delay_ms(300);
-			Max[i]= KeyScan();
+			Max[counter]= KeyScan();
 			
 			
 
-			if(Max[i]=='A')
+			if(Max[counter]=='A')
 			{
-				Max[i]='\0';
+				Max[counter]='\0';
 				break;
 			}
-			if(i == 3)
+			if(counter == 3)
 			{
-				Max[i] = '\0';
+				Max[counter] = '\0';
 				break;
 			}
-			CharLCD(Max[i]);
-			//delay_ms(300);
+			//delay_ms(300); 
+			CharLCD(Max[counter]);
 		 }		
 
 		CmdLCD(GOTO_LINE2_POS0);
 		StrLCD("Min temp : ");
 		CmdLCD(GOTO_LINE2_POS0 + 12);		
 		
-		for(i=0;i <=3;i++)
+		for(counter=0;counter <=3;counter++)
 		{
 			delay_ms(300);
-			Min[i]= KeyScan();
+			Min[counter]= KeyScan();
 			//
 			
-			if(Min[i]=='A')
+			if(Min[counter]=='A')
 			{
-				Min[i]='\0';
+				Min[counter]='\0';
 				break;
 			}
-			if(i == 3)
+			if(counter == 3)
 			{
-				Min[i] = '\0';
+				Min[counter] = '\0';
 				break;
 			}
-			CharLCD(Min[i]);
+			CharLCD(Min[counter]);
 		 }	
 
-	//	setThreshold(Min,Max);
+		setThreshold(Min,Max,&tempMin,&tempMax);
 		GreenLED(0); // Turn off LED when interrupt over 
-		//delay_s(3);
+		CmdLCD(CLEAR_LCD);
+		StrLCD("Threshold Set !!");
+		delay_s(3);
 		CmdLCD(CLEAR_LCD);
 		RedLED(0);
 		StrLCD("Return to main");
+}
+void checkPassword(void)
+{
+	StrLCD1("Enter Password");
+	CmdLCD(GOTO_LINE2_POS0);
+	//Password Display
+	//When read from I2C works 	 
+	//i2c_eeprom_seqread(I2C_EEPROM_SA,0x00,hashBuff,10);
+	//strcpy(hashBuff, p);
+		
+	//strcpy(hashBuff, "1234567");
+	memset(hashBuff,'\0',16);
+	memset(credentialBuff,'\0',16);
+	
+	readPassword(hashBuff) ;
+
+TRIAL: 
+	StrLCD1("Enter Password");
+	CmdLCD(GOTO_LINE2_POS0);
+	for(counter=0;counter<=10;counter++)
+
+	{	
+		delay_ms(300);
+		credentialBuff[counter] = KeyScan();
+		//CmdLCD(GOTO_LINE2_POS0 + counter);
+		CharLCD(credentialBuff[counter]);
+		
+		if(credentialBuff[counter]=='A')
+		{
+			credentialBuff[counter]='\0';
+			break;
+		}
+		if(counter == 10)
+		{
+			credentialBuff[counter] = '\0';
+		}
+	
+	 }
+
+	if(!strcmp(credentialBuff, hashBuff))
+	{
+		do
+		{
+			CmdLCD(CLEAR_LCD);
+			CmdLCD(GOTO_LINE1_POS0); 
+			StrLCD("1: Set Threshold");
+			CmdLCD(GOTO_LINE2_POS0); 
+			StrLCD("2: Set Password");
+
+
+				delay_ms(300);
+				keyPress = KeyScan();
+				if(keyPress == '1'){
+					changeThreshold();
+					break;
+					}
+				else if(keyPress == '2'){
+					changePassword();	
+					break;	  
+					}
+	
+		}	while(1);
+
 		return;
 	}
 	else
@@ -202,25 +239,4 @@ TRIAL:
 	}
 }
 
-void itos(int num, char* str)
-{
-    int i = 0, j = 0, k = 0;
-    int sign = num;
-    if (num < 0) {
-        num = -num;
-    }
-    do {
-        str[i++] = num % 10 + '0';
-    } while ((num /= 10) > 0);
 
-    if (sign < 0) {
-        str[i++] = '-';
-    }
-    str[i] = '\0';
-
-    for (j = 0, k = i - 1; j < k; j++, k--) {
-        char temp = str[j];
-        str[j] = str[k];
-        str[k] = temp;
-    }
-}

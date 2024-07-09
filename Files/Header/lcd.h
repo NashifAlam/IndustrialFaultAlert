@@ -14,6 +14,7 @@ void CharLCD(u8 asciiVal);
 
 void InitLCD(void);
 void StrLCD(s8 *p);
+void StrLCD1(s8 *p);
 void U32LCD(u32 n);
 void S32LCD(s32 n);
 void F32LCD(f32 f,u8 nDP);

@@ -31,14 +31,15 @@ void eint0_isr(void) __irq
 
 void Enable_EINT0(void)
 {
-	PINSEL1= PININTERRUPT;
+	PINSEL1 |=  PININTERRUPT;
 	//0x15400000;
 	//CFGPIN(PINSEL0,1,FUNC4);
 	//CFGPIN(PINSEL0,INTERSWITCH,2);
 //	SETBIT(IODIR1,EINT0_LED);
-	SSETBIT(VICIntEnable,14);
-	VICVectCntl0=0x20|14;
 	VICVectAddr0=(unsigned)eint0_isr;
+	VICVectCntl1=0x20|14;
+	SSETBIT(VICIntEnable,14);
+	
 	
 	//Enable EINT0 
 	//SSETBIT(EXTINT,0) //default

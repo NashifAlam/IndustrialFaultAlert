@@ -1,4 +1,4 @@
-#define I2C_EEPROM_SA 0x50 //7Bit Slave Addr
+//#define I2C_EEPROM_SA 0x50 //7Bit Slave Addr
 
 void i2c_eeprom_bytewrite(u8,u8,u8);
 
@@ -12,7 +12,9 @@ int readThresholdMin(void);
 
 int readThresholdMax(void);
 
-void readPassword(char**);
+void readPassword(char*);
 
-void setThreshold(char*, char*);
+void setPassword(char *);
+
+void setThreshold(char*, char*, int*, int*);
 

@@ -1,71 +1,80 @@
 #include "header.h"
 
 int interruptFlag = 0; 
-  
-//EEPROM
-#define I2CPINS 0x00000050
-//Interrupt
-//0x15400001 
-#define PININTERRUPT  0x15400001
+
+float curTemp	= 0;					  //ADC
+int tempMax = 0, tempMin = 0; 
+
+
 main()
 {
-	int curTemp	= 0;					  //ADC
-	int tempMax = readThresholdMax();	  //EEPROM
-	int tempMin = readThresholdMin();  	  //EEPROM
-	int smokeDetected = 0;				  //I/O Smoke sensor
-	//s8 Min[4], Max[4];
-	IODIR0 |= 1 << GREENLED; 
-	IODIR0 |= 1 << REDLED; 
-	
-	//itoa(tempMax, Max, 10);
-	//itoa(tempMin, Min, 10);
-	//LCDStart();	 
-	InitLCD();
+					 
+	InitLCD(); 
 	Enable_EINT0();
-	
+	IODIR0 |= 1 << GREENLED;
+	IODIR0 |= 1 << REDLED; 
+
+	Init_UART0();
+	Init_ADC();
+	init_MQ2();
+	init_i2c();
+	tempMax = readThresholdMax();	  //EEPROM
+	tempMin = readThresholdMin();  	  //EEPROM
+					  //I/O Smoke sensor
+
 	while(1)
 	{
-		//curTemp = readTemp();			
+		curTemp = ReadTempLM35(0x01);			
 		//smokeDetected = smokeSensorReading();
-
+		
 		CmdLCD(CLEAR_LCD);
 		CmdLCD(GOTO_LINE1_POS0);
-		StrLCD(" Sensor Reading");
+		StrLCD("Temp : ");
+		CmdLCD(GOTO_LINE1_POS0+7);
+		F32LCD(curTemp,2);
 		CmdLCD(GOTO_LINE2_POS0);
-		StrLCD(" ACTIVE");
-		 Alert();
-		//CmdLCD(GOTO_LINE2_POS0+8);
-		//StrLCD(Max);
-		if(smokeDetected || (curTemp < tempMin)||(curTemp > tempMax))
-		{
-				//Alert();
-				//delay_ms(100);
-		}  
-			
-		delay_s(1);
-	 /**/
-		  
-		/*
-		if(interruptFlag == 1)
-		{
-			//LCDStart();
-			CmdLCD(CLEAR_LCD);
-			CmdLCD(GOTO_LINE1_POS0);
-			StrLCD("Interrupt Hit !!");
-			delay_s(3);
-			CmdLCD(CLEAR_LCD);
-			interruptFlag = 0; 
+		StrLCD("MIN:");
+		CmdLCD(GOTO_LINE2_POS0 +4);
+		U32LCD(tempMin);
+		CmdLCD(GOTO_LINE2_POS0 +8);
+		StrLCD("MAX:");
+		CmdLCD(GOTO_LINE2_POS0+12);
+		U32LCD(tempMax);
+			//curTemp = ReadTempLM35(0x02);
 
+		//CmdLCD(CLEAR_LCD);
+		if(smokeSensorReading())
+		{
+			//Alert();
+			RedLED(1);
+			Alert(0);
+			RedLED(0);
+			delay_s(3);
+
+		} 
+		else if(curTemp < tempMin)
+		{
+		 	RedLED(1);
+			Alert(1);
+			RedLED(0);
+			delay_s(3);
+		}
+		else if(curTemp > tempMax)
+		{
+			RedLED(1);
+			Alert(2);
+			RedLED(0);
+			delay_s(3);
 		}
 		else
 		{
-			//curTemp = ReadTempLM35(0x02);
-	
-			CmdLCD(CLEAR_LCD);
-			CmdLCD(GOTO_LINE1_POS0);
-			StrLCD("Interrupt Not !!");
-			delay_s(2);
-			CmdLCD(CLEAR_LCD) */
-			
+			GreenLED(1);
+			delay_ms(800);
+			GreenLED(0);
+		}
+		
+		delay_ms(1000);
+	 
+		
 	}
 }
