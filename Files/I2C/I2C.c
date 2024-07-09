@@ -17,7 +17,8 @@ void i2c_start(void)
   // start condition
   SSETBIT(I2CONSET,STA_BIT);
   //wait for start bit status
-  while(READBIT(I2CONSET,SI_BIT)==0);
+  while(READBIT(I2CONSET,SI_BIT)==0);		//Check this shit 
+  														//	while(((I2CONSET>>SI_BIT)&1)==0);
   // clear start condition
   SCLRBIT(I2CONCLR,STA_BIT);
 }	

@@ -1,11 +1,8 @@
 //lcd.c
 
 #include <LPC21xx.h>
-
 #include "types.h"
-
 #include "delay.h"
-
 #include "defines.h"
 
 #include "lcd_defines.h"
@@ -17,23 +14,23 @@ void WriteLCD(u8 dat)
 
 	//select write operation
 
-	IOCLR0 |=1<<LCD_RW;
+	IOCLR0=1<<LCD_RW;
 
 	//write data onto data pins
 
 	//IOPIN1=(IOPIN1&~(0xff<<LCD_DATA))|(dat<<LCD_DATA);
 
-	//WRITEBYTE(IOPIN0,LCD_DATA,dat);
-	IOPIN0 |= ((IOPIN0 & ~(255 << LCD_DATA)) | (dat << LCD_DATA));
+	WRITEBYTE(IOPIN0,LCD_DATA,dat);
+
 	//enable high
 
-	IOSET0 |=1<<LCD_EN;
+	IOSET0=1<<LCD_EN;
 
 	delay_us(1);
 
 	//to low for latching
 
-	IOCLR0 |=1<<LCD_EN;
+	IOCLR0=1<<LCD_EN;
 
 	//delay for internal write cycle ops
 
@@ -78,7 +75,7 @@ void InitLCD(void)
 
 	//cfg p1.16 to p1.26 as gpio output pins
 
-	IODIR0 |=0xFF<<LCD_DATA|1<<LCD_RS
+	IODIR0=0xFF<<LCD_DATA|1<<LCD_RS
 
 	       |1<<LCD_RW|1<<LCD_EN;
 
@@ -119,6 +116,17 @@ void StrLCD(s8 *p)
 
 }
 
+ void StrLCD1(s8 *p)
+
+{
+	CmdLCD(CLEAR_LCD);
+	CmdLCD(GOTO_LINE1_POS0);
+	
+	while(*p)
+
+		CharLCD(*p++);
+
+}
 
 void U32LCD(u32 n)
 

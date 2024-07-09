@@ -1,15 +1,42 @@
 //uart.c
 #include <LPC21xx.h>
+#include <string.h>
 #include "types.h"
 #include "defines.h"
 #include "delay.h"
 #include "uart_defines.h"
+#include "pin.h"
+
+char ch;
+char buff[99]; 
+int  i;
+extern int Flag;
+char dummy;
+	  
+void UART0_isr(void) __irq
+{
+  if((U0IIR & 0x04)) 			//check if receive interrupt
+  {
+		ch = U0RBR;				// Read to Clear Receive Interrupt 
+		if(i<99)
+		{
+			buff[i++] = ch; 
+			if(strstr(buff,"+CMTI"))
+				Flag=1;
+		}
+  }
+  else
+      dummy=U0IIR; 						//Read to Clear transmit interrupt
+   
+	VICVectAddr = 0; 
+   VICVectAddr = 0; /* dummy write */
+}
 
 void Init_UART0(void)
 {
    //cfg pin connect block 
    //for p0.0 as TXD0,p0.1 as RXD0
-   PINSEL0=0x00000005;
+   PINSEL0 |= UARTPINS;
 	 //cfg for 8N1,DLAB enable
 	 U0LCR=1<<DLAB_BIT|WORD_LEN_SEL;
 	 //cfg baudrate
@@ -17,6 +44,15 @@ void Init_UART0(void)
    U0DLL=LOADVAL;
    //disable DLAB bit
    CLRBIT(U0LCR,DLAB_BIT);	
+
+	VICIntSelect = 0x00000000; // IRQ
+	VICVectAddr0 = (unsigned)UART0_isr;
+  	VICVectCntl0 = 0x20 | 6; /* UART0 Interrupt */
+  	VICIntEnable = 1 << 6;   /* Enable UART0 Interrupt */
+ 
+ // U0IIR = 0xc0;
+ // U0FCR = 0xc7;
+  U0IER = 0x03;       /* Enable UART0 RX and THRE Interrupts */   
 }
 
 void UART0_Tx(u8 sByte)
@@ -105,5 +141,5 @@ u32 UART0_OK(void)
 	if((UART0_Rx() == 'K') && (UART0_Rx() == 'O'))
 		return 1;
 	else
-		return 1;
+		return 0;
 }

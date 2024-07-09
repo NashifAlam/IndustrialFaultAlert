@@ -13,7 +13,7 @@
 #include "GSM.h"
 #include "lm35.h"
 #include "uart.h"
-
+#include "adc.h"
 
 int interSwitch(void);
 int ackSwitch(void);

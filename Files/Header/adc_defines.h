@@ -8,7 +8,7 @@
 #define CH3                0x08
 
 #define RESULT_BITS			6
-#define CHANNEL_SEL        CH1
+//#define CHANNEL_SEL        CH1
 #define FOSC               12000000
 #define CCLK               (5 * FOSC)
 #define PCLK               CCLK/4
